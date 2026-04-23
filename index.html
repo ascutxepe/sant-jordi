@@ -15,6 +15,7 @@ body {
     align-items: center;
     height: 100vh;
     overflow: hidden;
+    
 }
 
 .card {
@@ -140,7 +141,7 @@ img {
 </head>
 
 <body>
-
+<audio id="music" src="musica.mp3"></audio>
 
 
 <div class="card" id="app"></div>
@@ -247,6 +248,18 @@ function next(){
 let trollClicks = 0;
 let revealed = false;
 function love(){
+    document.getElementById("dani").play();
+   // ❤️ corazones
+    for(let i=0;i<25;i++){
+        let heart = document.createElement("div");
+        heart.className = "heart";
+        heart.style.left = Math.random()*100 + "vw";
+        heart.innerText = "❤️";
+        document.body.appendChild(heart);
+
+        setTimeout(()=>{heart.remove();},3000);
+    }
+
     const app = document.getElementById("app");
     trollClicks = 0;
 
