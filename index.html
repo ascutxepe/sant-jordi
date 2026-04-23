@@ -214,7 +214,7 @@ function next(){
         app.innerHTML = `
         <h2>Capítol 1</h2>
         <p>Qui diria que aquell viatge de 6 hores cap a Còrdova seria el començament de tot.</p>
-        <img src="foto1.jpg">
+        <img src="portada.jpeg">
         <button onclick="next()">Següent</button>`;
     }
 
@@ -222,7 +222,7 @@ function next(){
         app.innerHTML = `
         <h2>Capítol 2</h2>
         <p>Entre partits de pàdel, concerts i festa… tot es feia més divertit amb tu.</p>
-        <img src="foto2.jpg">
+        <img src="pirata.jpeg">
         <button onclick="next()">Següent</button>`;
     }
 
@@ -230,7 +230,7 @@ function next(){
         app.innerHTML = `
         <h2>Capítol 3</h2>
         <p>Si hi hagués un drac… el venceríem junts</p>
-        <img src="foto3.jpg">
+        <img src="dragon.jpeg">
         <button onclick="next()">Següent</button>`;
     }
 
@@ -245,7 +245,7 @@ function next(){
 
 /* 🎁 TROLEO */
 let trollClicks = 0;
-
+let revealed = false;
 function love(){
     const app = document.getElementById("app");
     trollClicks = 0;
@@ -316,6 +316,7 @@ document.getElementById("cover").onclick = function(){
     this.style.opacity = 0;
     document.getElementById("hidden").style.opacity = 1;
     document.getElementById("whatsappBtn").style.display = "block";
+    revealed = true;
 };
 }
 
@@ -330,7 +331,7 @@ function sendWhatsApp(text){
     const phone = "34695600016";
     const message = encodeURIComponent(text);
 
-    window.location.href = `whatsapp://send?phone=${phone}&text=${message}`;
+    window.location.href = `https://wa.me/${phone}?text=${message}`;
 }
 
 /* INIT */
