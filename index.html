@@ -213,7 +213,7 @@ function next(){
 
     if(step === 1){
         app.innerHTML = `
-        <h2>Capítol 11 — Sense saber-ho, tot començava</h2>
+        <h2>Capítol 1 — Sense saber-ho, tot començava</h2>
         <p>Qui diria que aquell viatge de 6 hores cap a Còrdova seria el començament de tot.</p>
         <img src="portada.jpeg">
         <button onclick="next()">Següent</button>`;
@@ -344,7 +344,7 @@ function sendWhatsApp(text){
     const phone = "34695600016";
     const message = encodeURIComponent(text);
 
-    window.location.href = `https://wa.me/${phone}?text=${message}`;
+    window.location.href = `whatsapp://send?phone=${phone}&text=${message}`;
 }
 
 /* INIT */
