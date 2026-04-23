@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feliç Sant Jordi ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    max-width: 350px;
+    text-align: center;
+    animation: fadeIn 0.8s ease;
+    position: relative;
+}
+
+input {
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    margin-top: 10px;
+    width: 80%;
+    text-align: center;
+}
+
+button {
+    margin-top: 15px;
+    padding: 12px 25px;
+    border: none;
+    background: #ff4d6d;
+    color: white;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #e63950;
+    transform: scale(1.1);
+}
+
+.floating {
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    font-size: 30px;
+    animation: float 3s infinite ease-in-out;
+}
+
+@keyframes float {
+    0% {transform: translateY(0);}
+    50% {transform: translateY(-10px);}
+    100% {transform: translateY(0);}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0; transform: translateY(20px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+.error {
+    color: red;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.heart {
+    position: absolute;
+    color: red;
+    font-size: 20px;
+    animation: rise 3s linear infinite;
+}
+
+@keyframes rise {
+    from {transform: translateY(0); opacity: 1;}
+    to {transform: translateY(-600px); opacity: 0;}
+}
+
+img {
+    width: 100%;
+    border-radius: 15px;
+    margin-top: 10px;
+}
+
+/* 🎟️ Ticket */
+.ticket {
+    border: 2px dashed #ff4d6d;
+    border-radius: 20px;
+    padding: 20px;
+    background: #fff5f7;
+}
+
+.scratch-container {
+    position: relative;
+    margin-top: 20px;
+    height: 80px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#hidden {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #ffe3e8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    opacity: 0;
+}
+
+#cover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<!-- DEBUG (no tocado) -->
+<div style="position:fixed; bottom:10px; right:10px; z-index:999;">
+    <button onclick="startStory()">Start</button>
+    <button onclick="next()">Next</button>
+    <button onclick="love()">Final</button>
+    <button onclick="trollSelection('massatge')">Massatge</button>
+    <button onclick="trollSelection('sopar')">Sopar</button>
+    <button onclick="showRealGift()">Sorpresa</button>
+</div>
+
+<div class="card" id="app"></div>
+
+<script>
+
+/* 🔐 PREGUNTAS */
+const questions = [
+    {
+        q: "Quan ens vam conèixer?",
+        a: ["19/05/2023","19-05-2023"],
+        hint: "Pista: t'estime 20 però resta-li 1 😏"
+    },
+    {
+        q: "On va ser?",
+        a: ["daimus","daimús","daimuz"],
+        hint: "Pista: venies d'entrenar un poc acalorada ☀️"
+    },
+    {
+        q: "En el primer sopar… mentre picàvem alguna cosa, qui et va 'picar' de veritat?",
+        a: ["mosquit","mosquito"],
+        hint: "Pista: no estava al plat… però també volia sopar 🦟"
+    }
+];
+
+let currentQ = 0;
+let step = 0;
+
+/* CARGAR PREGUNTA */
+function loadQuestion(){
+    const app = document.getElementById("app");
+
+    app.innerHTML = `
+        <div class="floating">🔐</div>
+        <h2>Accés especial</h2>
+        <p><b>${questions[currentQ].q}</b></p>
+        <input id="answer" placeholder="Resposta...">
+        <button onclick="check()">Següent</button>
+        <div class="error" id="error"></div>
+    `;
+}
+
+/* VALIDAR */
+function check(){
+    const input = document.getElementById("answer").value.trim().toLowerCase();
+    const error = document.getElementById("error");
+
+    if(questions[currentQ].a.includes(input)){
+        currentQ++;
+        if(currentQ < questions.length){
+            loadQuestion();
+        } else {
+            startStory();
+        }
+    } else {
+        error.innerText = questions[currentQ].hint;
+    }
+}
+
+/* HISTORIA */
+function startStory(){
+    step = 0;
+    next();
+}
+
+function next(){
+    step++;
+    const app = document.getElementById("app");
+
+    if(step === 1){
+        app.innerHTML = `
+        <h2>Capítol 1</h2>
+        <p>Qui diria que aquell viatge de 6 hores cap a Còrdova seria el començament de tot.</p>
+        <img src="foto1.jpg">
+        <button onclick="next()">Següent</button>`;
+    }
+
+    else if(step === 2){
+        app.innerHTML = `
+        <h2>Capítol 2</h2>
+        <p>Entre partits de pàdel, concerts i festa… tot es feia més divertit amb tu.</p>
+        <img src="foto2.jpg">
+        <button onclick="next()">Següent</button>`;
+    }
+
+    else if(step === 3){
+        app.innerHTML = `
+        <h2>Capítol 3</h2>
+        <p>Si hi hagués un drac… el venceríem junts</p>
+        <img src="foto3.jpg">
+        <button onclick="next()">Següent</button>`;
+    }
+
+    else if(step === 4){
+        app.innerHTML = `
+        <h2>Final</h2>
+        <p>No tinc un llibre perfecte…</p>
+        <p>Però sí una història que vull seguir escrivint amb tu.</p>
+        <button onclick="love()">💌 Toca aquí</button>`;
+    }
+}
+
+/* 🎁 TROLEO */
+let trollClicks = 0;
+
+function love(){
+    const app = document.getElementById("app");
+    trollClicks = 0;
+
+    app.innerHTML = `
+    <h2>Tria el teu premi 😏</h2>
+    <button onclick="trollSelection('massatge')">💆 Massatge</button>
+    <button onclick="trollSelection('sopar')">🍝 Sopar</button>`;
+}
+
+function trollSelection(type){
+    trollClicks++;
+    const app = document.getElementById("app");
+
+    if(trollClicks === 1){
+        app.innerHTML = `
+        <h2>Mmm…</h2>
+        <p>Sabia que triaries això… però no és tan fàcil 😌</p>
+        <button onclick="trollSelection('massatge')">💆</button>
+        <button onclick="trollSelection('sopar')">🍝</button>
+        <button onclick="trollSelection('sorpresa')">🎁</button>`;
+    }
+
+    else if(trollClicks === 2){
+        app.innerHTML = `
+        <h2>No tan ràpid…</h2>
+        <button onclick="trollSelection('sorpresa')">🎁</button>
+        <button onclick="trollSelection('sorpresa')">🎁</button>
+        <button onclick="trollSelection('${type}')">😅</button>`;
+    }
+
+    else if(trollClicks === 3){
+        app.innerHTML = `
+        <h2>Última 👀</h2>
+        <button onclick="trollSelection('sorpresa')">🎁</button>
+        <button onclick="trollSelection('sorpresa')">🎁</button>
+        <button onclick="trollSelection('sorpresa')">🎁</button>`;
+    }
+
+    else{
+        showRealGift();
+    }
+}
+
+/* 🎟️ REGALO */
+function showRealGift(){
+const app = document.getElementById("app");
+
+app.innerHTML = `
+<div class="ticket">
+    <h2>🎁 🍆</h2>
+
+    <div class="scratch-container">
+        <div id="hidden">Cena + masaje con final feliz 🏨😏</div>
+        <div id="cover">Rasca aquí</div>
+    </div>
+<p style="font-size:13px; opacity:0.7;">
+⚠️ Aquest premi només és vàlid si el canjees per WhatsApp 😏
+</p>
+    <button id="whatsappBtn" style="display:none;" 
+        onclick="sendWhatsApp('Acabe de desbloquejar el premi de Sant Jordi 😏❤️ Exigisc el meu premi 🔥')">
+        Canjear
+    </button>
+</div>
+`;
+
+document.getElementById("cover").onclick = function(){
+    this.style.opacity = 0;
+    document.getElementById("hidden").style.opacity = 1;
+    document.getElementById("whatsappBtn").style.display = "block";
+};
+}
+
+/* WHATSAPP */
+function sendWhatsApp(text){
+
+    if(!revealed){
+        alert("Primer rasca el premi 😏");
+        return;
+    }
+
+    const phone = "34695600016";
+    const message = encodeURIComponent(text);
+
+    window.location.href = `whatsapp://send?phone=${phone}&text=${message}`;
+}
+
+/* INIT */
+loadQuestion();
+
+</script>
+</body>
+</html>
